@@ -1,7 +1,7 @@
 import { Model } from '@vuex-orm/core'
 import Request from "../Request";
 class Eloquent extends Model{
-    apiUrl = 'http://localhost:8000/api/vendors';
+    apiUrl = '';
 
     async apiInsert() {
         let response = await this.request().post();

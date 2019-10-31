@@ -7758,6 +7758,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7769,9 +7794,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     getVendor: function getVendor(vendor) {
-      var copy = vendor.makeCopy();
-      console.log(copy);
-      this.vendor = copy;
+      this.vendor = vendor;
+      console.log(vendor);
+      /* let copy = vendor.makeCopy();
+       console.log(copy);
+       this.vendor = copy;*/
     },
     setDefaultVendor: function setDefaultVendor() {
       this.getVendor(this.getDefaultVendor());
@@ -7834,7 +7861,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return new _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"]();
     },
     mapVendors: function mapVendors() {
-      this.vendors = _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"].query().orderBy('id', 'desc').all();
+      this.vendors = this.vendors = _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"].query()["with"]('ingredients').orderBy('id', 'desc').all();
     },
     deleteVendor: function () {
       var _deleteVendor = _asyncToGenerator(
@@ -7897,7 +7924,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 6:
-                this.vendors = _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"].query().orderBy('id', 'desc').all();
+                this.mapVendors();
 
               case 7:
               case "end":
@@ -7915,7 +7942,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }()
   },
   created: function created() {
-    var ApiUrl = 'http://localhost:8000/api/vendors';
     this.fetchVendors();
   }
 });
@@ -44182,7 +44208,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", [
-      _c("h1", [_vm._v("Vendors")]),
+      _c("h1", [_vm._v(_vm._s(_vm.vendor.name) + " Vendor")]),
       _vm._v(" "),
       _c("div", [
         _c("p", [
@@ -44267,11 +44293,52 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.vendor.ingredients.length,
+              expression: "vendor.ingredients.length"
+            }
+          ]
+        },
+        [
+          _c("h1", [_vm._v(_vm._s(_vm.vendor.name) + " Ingredients")]),
+          _vm._v(" "),
+          _c("table", { staticClass: "table table-striped" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.vendor.ingredients, function(ingredient) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(ingredient.id))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(ingredient.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(ingredient.unit))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(ingredient.price))])
+                ])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c("hr")
+        ]
+      ),
+      _vm._v(" "),
       !_vm.vendors.length ? _c("h1", [_vm._v("No Records!")]) : _vm._e(),
+      _vm._v(" "),
+      _c("h1", [_vm._v("Vendors")]),
       _vm._v(" "),
       _vm.vendors.length
         ? _c("table", { staticClass: "table" }, [
-            _vm._m(0),
+            _vm._m(1),
             _vm._v(" "),
             _c(
               "tbody",
@@ -44284,6 +44351,8 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(vendor.contact))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(vendor.address))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(vendor.ingredients.length))]),
                   _vm._v(" "),
                   _c("td", [
                     _c(
@@ -44328,6 +44397,22 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", [_vm._v("Id")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Unit")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Price")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
@@ -44335,6 +44420,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Contact")]),
         _vm._v(" "),
         _c("th", [_vm._v("Address")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ingredients")]),
         _vm._v(" "),
         _c("th", [_vm._v("Actions")])
       ])
@@ -58264,7 +58351,7 @@ function (_Model) {
 
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Eloquent)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
-    _defineProperty(_assertThisInitialized(_this), "apiUrl", 'http://localhost:8000/api/vendors');
+    _defineProperty(_assertThisInitialized(_this), "apiUrl", '');
 
     return _this;
   }
@@ -58368,6 +58455,87 @@ function (_Model) {
 
 /***/ }),
 
+/***/ "./resources/js/orm/models/Ingredient.js":
+/*!***********************************************!*\
+  !*** ./resources/js/orm/models/Ingredient.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Ingredient; });
+/* harmony import */ var _Eloquent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Eloquent */ "./resources/js/orm/models/Eloquent.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var Ingredient =
+/*#__PURE__*/
+function (_Eloquent) {
+  _inherits(Ingredient, _Eloquent);
+
+  function Ingredient() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, Ingredient);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Ingredient)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "apiUrl", 'http://localhost:8000/api/ingredients');
+
+    return _this;
+  }
+
+  _createClass(Ingredient, null, [{
+    key: "fields",
+    value: function fields() {
+      return {
+        id: this.attr(null),
+        name: this.attr(''),
+        unit: this.attr('kg'),
+        price: this.attr(1),
+        vendor_id: this.attr(null)
+      };
+    }
+  }, {
+    key: "entity",
+    get: function get() {
+      return 'ingredients';
+    }
+  }]);
+
+  return Ingredient;
+}(_Eloquent__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/orm/models/Vendor.js":
 /*!*******************************************!*\
   !*** ./resources/js/orm/models/Vendor.js ***!
@@ -58380,6 +58548,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Vendor; });
 /* harmony import */ var _vuex_orm_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vuex-orm/core */ "./node_modules/@vuex-orm/core/dist/vuex-orm.esm.js");
 /* harmony import */ var _Eloquent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Eloquent */ "./resources/js/orm/models/Eloquent.js");
+/* harmony import */ var _Ingredient__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Ingredient */ "./resources/js/orm/models/Ingredient.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -58390,13 +58559,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -58408,9 +58580,21 @@ function (_Eloquent) {
   _inherits(Vendor, _Eloquent);
 
   function Vendor() {
+    var _getPrototypeOf2;
+
+    var _this;
+
     _classCallCheck(this, Vendor);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Vendor).apply(this, arguments));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Vendor)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "apiUrl", 'http://localhost:8000/api/vendors');
+
+    return _this;
   }
 
   _createClass(Vendor, null, [{
@@ -58420,7 +58604,8 @@ function (_Eloquent) {
         id: this.attr(null),
         name: this.attr(''),
         contact: this.attr(''),
-        address: this.attr('')
+        address: this.attr(''),
+        ingredients: this.hasMany(_Ingredient__WEBPACK_IMPORTED_MODULE_2__["default"], 'vendor_id')
       };
     }
   }, {
@@ -58451,6 +58636,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _vuex_orm_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vuex-orm/core */ "./node_modules/@vuex-orm/core/dist/vuex-orm.esm.js");
 /* harmony import */ var _models_Vendor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./models/Vendor */ "./resources/js/orm/models/Vendor.js");
+/* harmony import */ var _models_Ingredient__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./models/Ingredient */ "./resources/js/orm/models/Ingredient.js");
+
 
 
 
@@ -58459,7 +58646,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 var database = new _vuex_orm_core__WEBPACK_IMPORTED_MODULE_2__["default"].Database(); // Register Models to Database.
 
-database.register(_models_Vendor__WEBPACK_IMPORTED_MODULE_3__["default"]); // Create Vuex Store and register database through Vuex ORM.
+database.register(_models_Vendor__WEBPACK_IMPORTED_MODULE_3__["default"]);
+database.register(_models_Ingredient__WEBPACK_IMPORTED_MODULE_4__["default"]); // Create Vuex Store and register database through Vuex ORM.
 
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   plugins: [_vuex_orm_core__WEBPACK_IMPORTED_MODULE_2__["default"].install(database)]

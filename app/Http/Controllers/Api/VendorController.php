@@ -16,7 +16,7 @@ class VendorController extends Controller
      */
     public function index()
     {
-        return Vendor::all();
+        return Vendor::with('ingredients')->get();
     }
 
     /**
@@ -37,7 +37,10 @@ class VendorController extends Controller
      */
     public function store(AddRequest $request)
     {
-        return response(['message' => 'Added Successfully', 'vendor' => Vendor::create($request->all())]);
+        $vendor = Vendor::create($request->all());
+        $vendor->load('ingredients');
+
+        return response(['message' => 'Added Successfully', 'vendor' => $vendor]);
     }
 
     /**
@@ -72,7 +75,7 @@ class VendorController extends Controller
     public function update(Request $request, Vendor $vendor)
     {
         $vendor->update($request->except(['id', 'created_at', 'updated_at']));
-        return response(['message' => 'updated Successfully', 'vendor' => $vendor->refresh()]);
+        return response(['message' => 'updated Successfully', 'vendor' => $vendor->load('ingredients')->refresh()]);
     }
 
     /**
