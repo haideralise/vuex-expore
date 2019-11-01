@@ -1,14 +1,7 @@
 <template>
     <div>
         <div>
-            <h1>{{ vendor.name }} Vendor</h1>
-            <div>
-                <p>Name : <input type="text" v-model="vendor.name" class="form-control"></p>
-                <p>Contact : <input type="text" v-model="vendor.contact" class="form-control"></p>
-                <p>Address : <input type="text" v-model="vendor.address" class="form-control"></p>
-                <button class="btn btn-primary" @click="save">Save</button>
-                <button class="btn btn-default" @click="cancel">Cancel</button>
-            </div>
+            <vendor-form :vendor="vendor" :save="save" :cancel="cancel"></vendor-form>
             <div v-show="vendor.id">
                 <ingredient-list :vendor="vendor"></ingredient-list>
             </div>
@@ -40,10 +33,8 @@
                     </tr>
                     </tbody>
                 </table>
-
             </div>
         </div>
-        <!--<vendor-form :vendor="vendor" :add-vendor="addVendor"></vendor-form>-->
     </div>
 </template>
 
@@ -51,8 +42,9 @@
     import Vendor from "./../orm/models/Vendor";
     import vendor from "../store/modules/vendor";
     import IngredientList from "./IngredientList";
+    import VendorForm from "./VendorForm";
     export default {
-        components: {IngredientList},
+        components: {VendorForm, IngredientList},
         data(){
             return {
                 vendor: this.getDefaultVendor(),
@@ -72,44 +64,19 @@
             },
             async updateVendor() {
                 let response = await this.vendor.request().put();
-                response.success(async () => {
-                    this.vendor.name = 'change';
-                    await this.vendor.$save();
-                  /*  await Vendor.update({
-                        where: response.data.vendor.id,
-                        data: response.data.vendor
-                    });
-                  */  response.showSuccessMessage();
-                    this.setDefaultVendor();
-                    this.mapVendors();
-
-                }).error(() => {
-                    response.showErrorMessage();
-                });
+                response.success(() => this.setDefaultVendor());
             },
             async save() {
-                let update = false;
                 if(this.vendor.id) {
-                    update = await this.updateVendor();
+                    await this.updateVendor();
                 }else{
-                    update = await this.addVendor();
+                    await this.addVendor();
                 }
+                this.mapVendors();
             },
             async addVendor(){
-                   let response = await this.vendor.request().post();
-                this.mapVendors();
-
-                /* response.success(async () => {
-                      await Vendor.insert({
-                          data: response.data.vendor
-                      });
-                      response.showSuccessMessage();
-                     this.setDefaultVendor();
-                     this.mapVendors();
-
-                 }).error(() => {
-                      response.showErrorMessage();
-                 });*/
+                let response = await this.vendor.request().post();
+                response.success(() => this.setDefaultVendor());
             },
             getDefaultVendor(){
                 return new Vendor();
@@ -118,20 +85,13 @@
                 this.vendors =  this.vendors = Vendor.query().with('ingredients').orderBy('id', 'desc').all();
             },
             async deleteVendor(vendor){
-                let response = await vendor.request().delete();
-                response.success(async ()=> {
-                    await Vendor.delete(vendor.id);
-                    response.showSuccessMessage();
-                    this.mapVendors();
-                }).error(()=>{
-                    response.showErrorMessage();
-                });
+                await vendor.request().delete();
+                this.mapVendors();
 
             },
             async fetchVendors(){
-                let vendor = new Vendor();
-                let response = await vendor.request().get();
-                await Vendor.insert({ data: response.data });
+                this.setDefaultVendor();
+                await this.vendor.request().get();
                 this.mapVendors();
             },
             cancel(){

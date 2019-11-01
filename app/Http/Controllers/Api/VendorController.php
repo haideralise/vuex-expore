@@ -16,7 +16,7 @@ class VendorController extends Controller
      */
     public function index()
     {
-        return Vendor::with('ingredients')->get();
+        return  response(['vendors' => Vendor::with('ingredients')->get()]);
     }
 
     /**

@@ -3,21 +3,15 @@ import Response from "./Response";
 class Request {
     apiUrl = '';
     model = null;
+
     constructor(url, modelObject){
         this.apiUrl = url;
         this.model = modelObject;
     }
-    errorCallback(error){
-        toastr.error(Object.values(error.response.data.errors)[0], 'Error', {timeOut: 1500});
-    }
-    showSuccessMessage(response){
-        if(response.data.message)
-            toastr.success(response.data.message, 'Success', {timeOut: 1500});
-    }
+
     async request(type = 'get', data = {})
     {
-        let obj  =  Object.assign({}, this.model);
-        delete obj.$id;
+        let obj  = this.model.mapInput();
         let url =  this.apiUrl;
         if(obj.id) {
             url = `${this.apiUrl}/${obj.id}`;
@@ -31,22 +25,57 @@ class Request {
     }
     async post() {
         let response = await this.request('post');
-        for (let key in response.data.vendor) {
-            this.model[key] = response.data.vendor[key];
-        }
-        this.model.$save();
+        return this.performAction(response, ()=>{
+                this.mapModelValues(response)
+                this.model.$save();
+            })
     }
     async get() {
-        return await this.request('get');
+        let response = await this.request('get');
+        return this.performAction(response, ()=>{
+            this.mapModelValues(response)
+            this.model.constructor.insert({data: response.data[this.model.plurallize(this.model.getDataKey())]});
+        });
     }
     async put() {
-        return await this.request('put');
+        let response = await this.request('put');
+        return this.performAction(response, ()=>{
+            this.mapModelValues(response)
+            this.model.$save();
+        })
     }
     async patch() {
-        return await this.request('patch');
+        let response = await this.request('patch');
+        return this.performAction(response, ()=>{
+            this.mapModelValues(response)
+            this.model.$save();
+        })
     }
     async delete() {
-        return await this.request('delete');
+        let response = await this.request('delete');
+        return this.performAction(response, ()=>this.model.$delete())
+    }
+
+    performAction(response, callback){
+        if(response.isSuccess()) {
+            if(this.model.isConfigEnable('persist')) {
+                callback();
+            }
+            if(this.model.isConfigEnable('success')) {
+                response.showSuccessMessage();
+            }
+        }else {
+            if(this.model.isConfigEnable('error')) {
+                response.showErrorMessage();
+            }
+        }
+        return response;
+    }
+    mapModelValues(response) {
+        let data = response.data[this.model.getDataKey()];
+        for (let key in data) {
+            this.model[key] = data[key];
+        }
     }
 }
 export default Request;

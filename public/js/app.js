@@ -7740,10 +7740,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "VendorForm",
-  props: ['vendor', 'addVendor']
+  props: ['vendor', 'save', 'cancel']
 });
 
 /***/ }),
@@ -7762,6 +7761,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../orm/models/Vendor */ "./resources/js/orm/models/Vendor.js");
 /* harmony import */ var _store_modules_vendor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/modules/vendor */ "./resources/js/store/modules/vendor.js");
 /* harmony import */ var _IngredientList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./IngredientList */ "./resources/js/components/IngredientList.vue");
+/* harmony import */ var _VendorForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./VendorForm */ "./resources/js/components/VendorForm.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7808,20 +7808,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
+    VendorForm: _VendorForm__WEBPACK_IMPORTED_MODULE_4__["default"],
     IngredientList: _IngredientList__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
@@ -7844,60 +7837,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateVendor: function () {
       var _updateVendor = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _this = this;
 
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                _context2.next = 2;
+                _context.next = 2;
                 return this.vendor.request().put();
 
               case 2:
-                response = _context2.sent;
-                response.success(
-                /*#__PURE__*/
-                _asyncToGenerator(
-                /*#__PURE__*/
-                _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-                    while (1) {
-                      switch (_context.prev = _context.next) {
-                        case 0:
-                          _this.vendor.name = 'change';
-                          _context.next = 3;
-                          return _this.vendor.$save();
-
-                        case 3:
-                          /*  await Vendor.update({
-                                where: response.data.vendor.id,
-                                data: response.data.vendor
-                            });
-                          */
-                          response.showSuccessMessage();
-
-                          _this.setDefaultVendor();
-
-                          _this.mapVendors();
-
-                        case 6:
-                        case "end":
-                          return _context.stop();
-                      }
-                    }
-                  }, _callee);
-                }))).error(function () {
-                  response.showErrorMessage();
+                response = _context.sent;
+                response.success(function () {
+                  return _this.setDefaultVendor();
                 });
 
               case 4:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee, this);
       }));
 
       function updateVendor() {
@@ -7909,40 +7871,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     save: function () {
       var _save = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var update;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                update = false;
-
                 if (!this.vendor.id) {
-                  _context3.next = 7;
+                  _context2.next = 5;
                   break;
                 }
 
-                _context3.next = 4;
+                _context2.next = 3;
                 return this.updateVendor();
 
-              case 4:
-                update = _context3.sent;
-                _context3.next = 10;
+              case 3:
+                _context2.next = 7;
                 break;
 
-              case 7:
-                _context3.next = 9;
+              case 5:
+                _context2.next = 7;
                 return this.addVendor();
 
-              case 9:
-                update = _context3.sent;
+              case 7:
+                this.mapVendors();
 
-              case 10:
+              case 8:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
       function save() {
@@ -7954,35 +7912,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     addVendor: function () {
       var _addVendor = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var _this2 = this;
+
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context4.next = 2;
+                _context3.next = 2;
                 return this.vendor.request().post();
 
               case 2:
-                response = _context4.sent;
-                this.mapVendors();
-                /* response.success(async () => {
-                      await Vendor.insert({
-                          data: response.data.vendor
-                      });
-                      response.showSuccessMessage();
-                     this.setDefaultVendor();
-                     this.mapVendors();
-                  }).error(() => {
-                      response.showErrorMessage();
-                 });*/
+                response = _context3.sent;
+                response.success(function () {
+                  return _this2.setDefaultVendor();
+                });
 
               case 4:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee3, this);
       }));
 
       function addVendor() {
@@ -8000,52 +7952,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteVendor: function () {
       var _deleteVendor = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(vendor) {
-        var _this2 = this;
-
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(vendor) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _context6.next = 2;
+                _context4.next = 2;
                 return vendor.request()["delete"]();
 
               case 2:
-                response = _context6.sent;
-                response.success(
-                /*#__PURE__*/
-                _asyncToGenerator(
-                /*#__PURE__*/
-                _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-                  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-                    while (1) {
-                      switch (_context5.prev = _context5.next) {
-                        case 0:
-                          _context5.next = 2;
-                          return _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"](vendor.id);
+                this.mapVendors();
 
-                        case 2:
-                          response.showSuccessMessage();
-
-                          _this2.mapVendors();
-
-                        case 4:
-                        case "end":
-                          return _context5.stop();
-                      }
-                    }
-                  }, _callee5);
-                }))).error(function () {
-                  response.showErrorMessage();
-                });
-
-              case 4:
+              case 3:
               case "end":
-                return _context6.stop();
+                return _context4.stop();
             }
           }
-        }, _callee6);
+        }, _callee4, this);
       }));
 
       function deleteVendor(_x) {
@@ -8057,32 +7980,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     fetchVendors: function () {
       var _fetchVendors = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
-        var vendor, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                vendor = new _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"]();
-                _context7.next = 3;
-                return vendor.request().get();
+                this.setDefaultVendor();
+                _context5.next = 3;
+                return this.vendor.request().get();
 
               case 3:
-                response = _context7.sent;
-                _context7.next = 6;
-                return _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"].insert({
-                  data: response.data
-                });
-
-              case 6:
                 this.mapVendors();
 
-              case 7:
+              case 4:
               case "end":
-                return _context7.stop();
+                return _context5.stop();
             }
           }
-        }, _callee7, this);
+        }, _callee5, this);
       }));
 
       function fetchVendors() {
@@ -44807,28 +44722,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.vendor.id,
-            expression: "vendor.id"
-          }
-        ],
-        attrs: { type: "hidden", name: "name" },
-        domProps: { value: _vm.vendor.id },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.vendor, "id", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
+    _c("h1", [_vm._v("Vendor")]),
+    _vm._v(" "),
+    _c("p", [
+      _vm._v("Name : "),
       _c("input", {
         directives: [
           {
@@ -44838,7 +44735,8 @@ var render = function() {
             expression: "vendor.name"
           }
         ],
-        attrs: { type: "text", name: "name" },
+        staticClass: "form-control",
+        attrs: { type: "text" },
         domProps: { value: _vm.vendor.name },
         on: {
           input: function($event) {
@@ -44848,8 +44746,11 @@ var render = function() {
             _vm.$set(_vm.vendor, "name", $event.target.value)
           }
         }
-      }),
-      _vm._v(" "),
+      })
+    ]),
+    _vm._v(" "),
+    _c("p", [
+      _vm._v("Contact : "),
       _c("input", {
         directives: [
           {
@@ -44859,7 +44760,8 @@ var render = function() {
             expression: "vendor.contact"
           }
         ],
-        attrs: { type: "text", name: "name" },
+        staticClass: "form-control",
+        attrs: { type: "text" },
         domProps: { value: _vm.vendor.contact },
         on: {
           input: function($event) {
@@ -44869,8 +44771,11 @@ var render = function() {
             _vm.$set(_vm.vendor, "contact", $event.target.value)
           }
         }
-      }),
-      _vm._v(" "),
+      })
+    ]),
+    _vm._v(" "),
+    _c("p", [
+      _vm._v("Address : "),
       _c("input", {
         directives: [
           {
@@ -44880,7 +44785,8 @@ var render = function() {
             expression: "vendor.address"
           }
         ],
-        attrs: { type: "text", name: "name" },
+        staticClass: "form-control",
+        attrs: { type: "text" },
         domProps: { value: _vm.vendor.address },
         on: {
           input: function($event) {
@@ -44890,21 +44796,18 @@ var render = function() {
             _vm.$set(_vm.vendor, "address", $event.target.value)
           }
         }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          on: {
-            click: function($event) {
-              return _vm.addVendor(_vm.vendor)
-            }
-          }
-        },
-        [_vm._v("Save")]
-      )
-    ])
+      })
+    ]),
+    _vm._v(" "),
+    _c("button", { staticClass: "btn btn-primary", on: { click: _vm.save } }, [
+      _vm._v("Save")
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      { staticClass: "btn btn-default", on: { click: _vm.cancel } },
+      [_vm._v("Cancel")]
+    )
   ])
 }
 var staticRenderFns = []
@@ -44930,176 +44833,93 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", [
-      _c("h1", [_vm._v(_vm._s(_vm.vendor.name) + " Vendor")]),
-      _vm._v(" "),
-      _c("div", [
-        _c("p", [
-          _vm._v("Name : "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.vendor.name,
-                expression: "vendor.name"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text" },
-            domProps: { value: _vm.vendor.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.vendor, "name", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v("Contact : "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.vendor.contact,
-                expression: "vendor.contact"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text" },
-            domProps: { value: _vm.vendor.contact },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.vendor, "contact", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v("Address : "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.vendor.address,
-                expression: "vendor.address"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text" },
-            domProps: { value: _vm.vendor.address },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.vendor, "address", $event.target.value)
-              }
-            }
-          })
-        ]),
+    _c(
+      "div",
+      [
+        _c("vendor-form", {
+          attrs: { vendor: _vm.vendor, save: _vm.save, cancel: _vm.cancel }
+        }),
         _vm._v(" "),
         _c(
-          "button",
-          { staticClass: "btn btn-primary", on: { click: _vm.save } },
-          [_vm._v("Save")]
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.vendor.id,
+                expression: "vendor.id"
+              }
+            ]
+          },
+          [_c("ingredient-list", { attrs: { vendor: _vm.vendor } })],
+          1
         ),
         _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-default", on: { click: _vm.cancel } },
-          [_vm._v("Cancel")]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.vendor.id,
-              expression: "vendor.id"
-            }
-          ]
-        },
-        [_c("ingredient-list", { attrs: { vendor: _vm.vendor } })],
-        1
-      ),
-      _vm._v(" "),
-      !_vm.hideVendorList
-        ? _c("div", [
-            _c("h1", [
-              _vm._v(
-                " " + _vm._s(_vm.vendors.length ? "Vendors" : "No Records!")
-              )
-            ]),
-            _vm._v(" "),
-            _vm.vendors.length
-              ? _c("table", { staticClass: "table" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.vendors, function(vendor) {
-                      return _c("tr", { key: vendor.id }, [
-                        _c("td", [_vm._v(_vm._s(vendor.id))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(vendor.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(vendor.contact))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(vendor.address))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(vendor.ingredients.length))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger",
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteVendor(vendor)
-                                }
-                              }
-                            },
-                            [_vm._v("x")]
-                          ),
+        !_vm.hideVendorList
+          ? _c("div", [
+              _c("h1", [
+                _vm._v(
+                  " " + _vm._s(_vm.vendors.length ? "Vendors" : "No Records!")
+                )
+              ]),
+              _vm._v(" "),
+              _vm.vendors.length
+                ? _c("table", { staticClass: "table" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.vendors, function(vendor) {
+                        return _c("tr", { key: vendor.id }, [
+                          _c("td", [_vm._v(_vm._s(vendor.id))]),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-info",
-                              on: {
-                                click: function($event) {
-                                  return _vm.getVendor(vendor)
+                          _c("td", [_vm._v(_vm._s(vendor.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(vendor.contact))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(vendor.address))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(vendor.ingredients.length))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteVendor(vendor)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("i")]
-                          )
+                              },
+                              [_vm._v("x")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-info",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getVendor(vendor)
+                                  }
+                                }
+                              },
+                              [_vm._v("i")]
+                            )
+                          ])
                         ])
-                      ])
-                    }),
-                    0
-                  )
-                ])
-              : _vm._e()
-          ])
-        : _vm._e()
-    ])
+                      }),
+                      0
+                    )
+                  ])
+                : _vm._e()
+            ])
+          : _vm._e()
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -58831,20 +58651,6 @@ function () {
   }
 
   _createClass(Request, [{
-    key: "errorCallback",
-    value: function errorCallback(error) {
-      toastr.error(Object.values(error.response.data.errors)[0], 'Error', {
-        timeOut: 1500
-      });
-    }
-  }, {
-    key: "showSuccessMessage",
-    value: function showSuccessMessage(response) {
-      if (response.data.message) toastr.success(response.data.message, 'Success', {
-        timeOut: 1500
-      });
-    }
-  }, {
     key: "request",
     value: function () {
       var _request = _asyncToGenerator(
@@ -58862,33 +58668,32 @@ function () {
               case 0:
                 type = _args.length > 0 && _args[0] !== undefined ? _args[0] : 'get';
                 data = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
-                obj = Object.assign({}, this.model);
-                delete obj.$id;
+                obj = this.model.mapInput();
                 url = this.apiUrl;
 
                 if (obj.id) {
                   url = "".concat(this.apiUrl, "/").concat(obj.id);
                 }
 
-                _context.prev = 6;
-                _context.next = 9;
+                _context.prev = 5;
+                _context.next = 8;
                 return axios[type](url, obj);
 
-              case 9:
+              case 8:
                 response = _context.sent;
                 return _context.abrupt("return", new _Response__WEBPACK_IMPORTED_MODULE_1__["default"](response));
 
-              case 13:
-                _context.prev = 13;
-                _context.t0 = _context["catch"](6);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](5);
                 return _context.abrupt("return", new _Response__WEBPACK_IMPORTED_MODULE_1__["default"](_context.t0.response));
 
-              case 16:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[6, 13]]);
+        }, _callee, this, [[5, 12]]);
       }));
 
       function request() {
@@ -58903,7 +58708,9 @@ function () {
       var _post = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var response, key;
+        var _this = this;
+
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -58913,14 +58720,13 @@ function () {
 
               case 2:
                 response = _context2.sent;
+                return _context2.abrupt("return", this.performAction(response, function () {
+                  _this.mapModelValues(response);
 
-                for (key in response.data.vendor) {
-                  this.model[key] = response.data.vendor[key];
-                }
+                  _this.model.$save();
+                }));
 
-                this.model.$save();
-
-              case 5:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -58940,6 +58746,9 @@ function () {
       var _get = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var _this2 = this;
+
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -58948,9 +58757,16 @@ function () {
                 return this.request('get');
 
               case 2:
-                return _context3.abrupt("return", _context3.sent);
+                response = _context3.sent;
+                return _context3.abrupt("return", this.performAction(response, function () {
+                  _this2.mapModelValues(response);
 
-              case 3:
+                  _this2.model.constructor.insert({
+                    data: response.data[_this2.model.plurallize(_this2.model.getDataKey())]
+                  });
+                }));
+
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -58970,6 +58786,9 @@ function () {
       var _put = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var _this3 = this;
+
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -58978,9 +58797,14 @@ function () {
                 return this.request('put');
 
               case 2:
-                return _context4.abrupt("return", _context4.sent);
+                response = _context4.sent;
+                return _context4.abrupt("return", this.performAction(response, function () {
+                  _this3.mapModelValues(response);
 
-              case 3:
+                  _this3.model.$save();
+                }));
+
+              case 4:
               case "end":
                 return _context4.stop();
             }
@@ -59000,6 +58824,9 @@ function () {
       var _patch = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var _this4 = this;
+
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
@@ -59008,9 +58835,14 @@ function () {
                 return this.request('patch');
 
               case 2:
-                return _context5.abrupt("return", _context5.sent);
+                response = _context5.sent;
+                return _context5.abrupt("return", this.performAction(response, function () {
+                  _this4.mapModelValues(response);
 
-              case 3:
+                  _this4.model.$save();
+                }));
+
+              case 4:
               case "end":
                 return _context5.stop();
             }
@@ -59030,6 +58862,9 @@ function () {
       var _delete2 = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        var _this5 = this;
+
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
@@ -59038,9 +58873,12 @@ function () {
                 return this.request('delete');
 
               case 2:
-                return _context6.abrupt("return", _context6.sent);
+                response = _context6.sent;
+                return _context6.abrupt("return", this.performAction(response, function () {
+                  return _this5.model.$delete();
+                }));
 
-              case 3:
+              case 4:
               case "end":
                 return _context6.stop();
             }
@@ -59054,6 +58892,34 @@ function () {
 
       return _delete;
     }()
+  }, {
+    key: "performAction",
+    value: function performAction(response, callback) {
+      if (response.isSuccess()) {
+        if (this.model.isConfigEnable('persist')) {
+          callback();
+        }
+
+        if (this.model.isConfigEnable('success')) {
+          response.showSuccessMessage();
+        }
+      } else {
+        if (this.model.isConfigEnable('error')) {
+          response.showErrorMessage();
+        }
+      }
+
+      return response;
+    }
+  }, {
+    key: "mapModelValues",
+    value: function mapModelValues(response) {
+      var data = response.data[this.model.getDataKey()];
+
+      for (var key in data) {
+        this.model[key] = data[key];
+      }
+    }
   }]);
 
   return Request;
@@ -59250,10 +59116,21 @@ function (_Model) {
   }
 
   _createClass(Eloquent, [{
-    key: "pluarize",
-    value: function pluarize(noun) {
+    key: "isConfigEnable",
+    value: function isConfigEnable(key) {
+      return this.constructor[key];
+    }
+  }, {
+    key: "plurallize",
+    value: function plurallize(noun) {
       var suffix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 's';
       return "".concat(noun).concat(suffix);
+    }
+  }, {
+    key: "getApiUrl",
+    value: function getApiUrl() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return this.apiUrl;
     }
   }, {
     key: "getDataKey",
@@ -59364,12 +59241,79 @@ function (_Model) {
   }, {
     key: "request",
     value: function request() {
-      return new _Request__WEBPACK_IMPORTED_MODULE_2__["default"](this.apiUrl, this);
+      return new _Request__WEBPACK_IMPORTED_MODULE_2__["default"](this.getApiUrl(), this);
+    }
+  }, {
+    key: "mapInput",
+    value: function mapInput() {
+      var obj = Object.assign({}, this);
+      delete obj.$id;
+      return obj;
+    }
+  }], [{
+    key: "enablePersist",
+    value: function enablePersist() {
+      this.persist = true;
+    }
+  }, {
+    key: "disablePersist",
+    value: function disablePersist() {
+      this.persist = false;
+    }
+  }, {
+    key: "enableError",
+    value: function enableError() {
+      this.error = true;
+    }
+  }, {
+    key: "disableError",
+    value: function disableError() {
+      this.error = false;
+    }
+  }, {
+    key: "enableSuccess",
+    value: function enableSuccess() {
+      this.success = true;
+    }
+  }, {
+    key: "disableSuccess",
+    value: function disableSuccess() {
+      this.success = false;
+    }
+  }, {
+    key: "persist",
+    set: function set(v) {
+      this.persist = v;
+    },
+    get: function get() {
+      return this.persist;
+    }
+  }, {
+    key: "error",
+    set: function set(v) {
+      this.error = v;
+    },
+    get: function get() {
+      return this.error;
+    }
+  }, {
+    key: "success",
+    set: function set(v) {
+      this.success = v;
+    },
+    get: function get() {
+      return this.success;
     }
   }]);
 
   return Eloquent;
 }(_vuex_orm_core__WEBPACK_IMPORTED_MODULE_1__["Model"]);
+
+_defineProperty(Eloquent, "persist", true);
+
+_defineProperty(Eloquent, "success", true);
+
+_defineProperty(Eloquent, "error", true);
 
 /* harmony default export */ __webpack_exports__["default"] = (Eloquent);
 
@@ -59479,15 +59423,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -59499,24 +59441,18 @@ function (_Eloquent) {
   _inherits(Vendor, _Eloquent);
 
   function Vendor() {
-    var _getPrototypeOf2;
-
-    var _this;
-
     _classCallCheck(this, Vendor);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Vendor)).call.apply(_getPrototypeOf2, [this].concat(args)));
-
-    _defineProperty(_assertThisInitialized(_this), "apiUrl", 'http://localhost:8000/api/vendors');
-
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Vendor).apply(this, arguments));
   }
 
-  _createClass(Vendor, null, [{
+  _createClass(Vendor, [{
+    key: "getApiUrl",
+    value: function getApiUrl() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return '/api/vendors';
+    }
+  }], [{
     key: "fields",
     value: function fields() {
       return {
