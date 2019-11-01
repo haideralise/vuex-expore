@@ -19,5 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('vendors', 'Api\VendorController@index');
 Route::post('vendors', 'Api\VendorController@store');
-Route::post('vendors/{vendor}', 'Api\VendorController@update');
+Route::put('vendors/{vendor}', 'Api\VendorController@update');
 Route::delete('vendors/{vendor}', 'Api\VendorController@destroy');

@@ -1,8 +1,27 @@
 import { Model } from '@vuex-orm/core'
 import Request from "../Request";
+import Vendor from "./Vendor";
 class Eloquent extends Model{
     apiUrl = '';
+    pluarize(noun, suffix = 's') {
+        return `${noun}${suffix}`;
+    }
 
+    getDataKey(config = {}){
+        return this.sigularize(this.constructor.name);
+    }
+    sigularize(noun) {
+        if((noun[noun.length - 2] == 's' && noun[noun.length - 1] == 's')) {
+            return noun.toLowerCase();
+        }
+        if(noun[noun.length - 1] == 's') {
+            let characters = noun.toLowerCase().split('');
+            characters.pop();
+            return  characters.join('');
+        }
+
+       return noun.toLowerCase();
+    }
     async apiInsert() {
         let response = await this.request().post();
         return  response.data.vendor;

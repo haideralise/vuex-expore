@@ -86,6 +86,7 @@ class VendorController extends Controller
      */
     public function destroy(Vendor $vendor)
     {
+        $vendor->ingredients()->delete();
         $vendor->delete();
         return response(['message' => 'Deleted Successfully.']);
     }

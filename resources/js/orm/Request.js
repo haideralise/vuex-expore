@@ -1,9 +1,18 @@
+import Response from "./Response";
+
 class Request {
     apiUrl = '';
     model = null;
     constructor(url, modelObject){
         this.apiUrl = url;
         this.model = modelObject;
+    }
+    errorCallback(error){
+        toastr.error(Object.values(error.response.data.errors)[0], 'Error', {timeOut: 1500});
+    }
+    showSuccessMessage(response){
+        if(response.data.message)
+            toastr.success(response.data.message, 'Success', {timeOut: 1500});
     }
     async request(type = 'get', data = {})
     {
@@ -13,28 +22,19 @@ class Request {
         if(obj.id) {
             url = `${this.apiUrl}/${obj.id}`;
         }
-        let response = '';
-        switch (type) {
-            case "post":
-                response = await axios.post(url, obj);
-                break;
-            case "get":
-                response = await axios.get(url, obj);
-                break;
-            case "put":
-                response = await axios.put(url, obj);
-                break;
-            case "patch":
-                response = await axios.patch(url, obj);
-                break;
-            case "delete":
-                response = await axios.delete(url, obj);
-                break;
+        try{
+            let response = await axios[type](url, obj);
+               return new Response(response);
+        }catch (e) {
+            return  new Response(e.response);
         }
-        return response;
     }
     async post() {
-        return await this.request('post');
+        let response = await this.request('post');
+        for (let key in response.data.vendor) {
+            this.model[key] = response.data.vendor[key];
+        }
+        this.model.$save();
     }
     async get() {
         return await this.request('get');

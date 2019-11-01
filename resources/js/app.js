@@ -5,7 +5,9 @@
  */
 
 require('./bootstrap');
+require('toastr/toastr');
 window.Vue = require('vue');
+window.toastr = require('toastr/toastr');
 import store from './orm/store';
 /**
  * The following block of code may be used to automatically register your
