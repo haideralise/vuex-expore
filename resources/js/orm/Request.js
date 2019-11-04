@@ -21,7 +21,7 @@ class Request {
         this.response = null;
         return this;
     }
-    getResponse(response){
+    getResponse(){
         return this.response;
     }
 
@@ -41,37 +41,48 @@ class Request {
     }
     async initiateRequest(callback){
         let response = await this.httpClient.post('',this.model.mapInput());
-
     }
     async post() {
-        let response = await this.httpClient.post('',this.model.mapInput());
-        this.setResponse(response);
-        return this.performAction(new Response(response),(response) => this.persistRecord(response))
+        try{
+            let response = await this.httpClient.post('',this.model.mapInput());
+            this.setResponse(response);
+        }catch (e) {
+            this.setResponse(e.response);
+        }
+
+        return this.performAction(this.persistRecord)
     }
     async get(persist = false) {
 
-        let response = await this.httpClient.get(persist ? `${this.model.id}` : '');
-        this.setResponse(response);
-        //return  this.persistRecord()
-        return this.performAction(this.persistRecord);
+        try {
+            let response = await this.httpClient.get(persist ? `${this.model.id}` : '');
+            this.setResponse(response);
+        }catch (e) {
+            this.setResponse(e.response);
+        }
+        return this.performAction(() => persist ?
+            this.persistRecord(this.getResponse()):
+            this.insertCollection(this.getResponse())
+        )
+
     }
     async put() {
-        let response = await this.request('put');
-        return this.performAction(response, ()=>{
-            this.mapModelValues(response)
-            this.model.$save();
-        })
+        try {
+            let response = await this.httpClient.put(`${this.model.id}`, this.model.mapInput());
+            this.setResponse(response);
+        }catch (e) {
+            this.setResponse(e.response);
+        }
+        return this.performAction(() => this.persistRecord(this.getResponse()))
     }
     async patch() {
         let response = await this.request('patch');
         return this.performAction(response, ()=>{
-            this.mapModelValues(response)
-            this.model.$save();
         })
     }
     async delete() {
-        let response = await this.request('delete');
-        return this.performAction(response, ()=>this.model.$delete())
+        this.setResponse(await this.request('delete'));
+        return this.performAction( () => this.model.$delete())
     }
 
     performAction(callback){
@@ -83,6 +94,7 @@ class Request {
                 this.getResponse().showSuccessMessage();
             }
         }else {
+            console.log('error', this.getResponse());
             if(this.model.isConfigEnable('error')) {
                 this.getResponse().showErrorMessage();
             }
@@ -95,11 +107,11 @@ class Request {
             this.model[key] = data[key];
         }
     }
-    persistRecord = (response) =>
+    persistRecord()
     {
-        this.mapModelValues(response)
+        this.mapModelValues(this.getResponse())
         this.model.$save();
-        return response;
+        return this.getResponse();
     }
     insertCollection = () =>
     {

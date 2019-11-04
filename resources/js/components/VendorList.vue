@@ -83,7 +83,6 @@
             },
             mapVendors(){
                 this.vendors =  this.vendors = Vendor.query().with('ingredients').orderBy('id', 'desc').all();
-           //     this.vendors[0].request().get(true);
                 },
             async deleteVendor(vendor){
                 await vendor.request().delete();

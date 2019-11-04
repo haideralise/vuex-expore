@@ -64,8 +64,11 @@ class VendorController extends Controller
      */
     public function update(Request $request, Vendor $vendor)
     {
+        $this->validate($request, [
+            'name' => 'required'
+    ]);
         $vendor->update($request->except(['id', 'created_at', 'updated_at']));
-        return response(['message' => 'updated Successfully', 'vendor' => $vendor->load('ingredients')->refresh()]);
+        return response(['message' => 'updated Successfully', 'vendor' => $vendor->refresh()]);
     }
 
     /**

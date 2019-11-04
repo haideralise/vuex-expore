@@ -36,7 +36,9 @@ class Eloquent extends Model{
     }
 
     getDataKey(config = {}){
+        console.log(this.sigularize(this.constructor.name), 'data key');
         return this.sigularize(this.constructor.name);
+
     }
     sigularize(noun) {
         if((noun[noun.length - 2] == 's' && noun[noun.length - 1] == 's')) {

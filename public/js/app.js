@@ -7947,7 +7947,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return new _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"]();
     },
     mapVendors: function mapVendors() {
-      this.vendors = this.vendors = _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"].query()["with"]('ingredients').orderBy('id', 'desc').all(); //     this.vendors[0].request().get(true);
+      this.vendors = this.vendors = _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__["default"].query()["with"]('ingredients').orderBy('id', 'desc').all();
     },
     deleteVendor: function () {
       var _deleteVendor = _asyncToGenerator(
@@ -58653,14 +58653,6 @@ function () {
 
     _defineProperty(this, "response", null);
 
-    _defineProperty(this, "persistRecord", function (response) {
-      _this.mapModelValues(response);
-
-      _this.model.$save();
-
-      return response;
-    });
-
     _defineProperty(this, "insertCollection", function () {
       _this.model.constructor.insert({
         data: _this.getResponse().data[_this.model.plurallize(_this.model.getDataKey())]
@@ -58690,7 +58682,7 @@ function () {
     }
   }, {
     key: "getResponse",
-    value: function getResponse(response) {
+    value: function getResponse() {
       return this.response;
     }
   }, {
@@ -58782,29 +58774,35 @@ function () {
       var _post = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var _this2 = this;
-
         var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
+                _context3.prev = 0;
+                _context3.next = 3;
                 return this.httpClient.post('', this.model.mapInput());
 
-              case 2:
+              case 3:
                 response = _context3.sent;
                 this.setResponse(response);
-                return _context3.abrupt("return", this.performAction(new _Response__WEBPACK_IMPORTED_MODULE_1__["default"](response), function (response) {
-                  return _this2.persistRecord(response);
-                }));
+                _context3.next = 10;
+                break;
 
-              case 5:
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](0);
+                this.setResponse(_context3.t0.response);
+
+              case 10:
+                return _context3.abrupt("return", this.performAction(this.persistRecord));
+
+              case 11:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee3, this, [[0, 7]]);
       }));
 
       function post() {
@@ -58819,6 +58817,8 @@ function () {
       var _get = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var _this2 = this;
+
         var persist,
             response,
             _args4 = arguments;
@@ -58827,21 +58827,32 @@ function () {
             switch (_context4.prev = _context4.next) {
               case 0:
                 persist = _args4.length > 0 && _args4[0] !== undefined ? _args4[0] : false;
-                _context4.next = 3;
+                _context4.prev = 1;
+                _context4.next = 4;
                 return this.httpClient.get(persist ? "".concat(this.model.id) : '');
 
-              case 3:
+              case 4:
                 response = _context4.sent;
-                this.setResponse(response); //return  this.persistRecord()
+                this.setResponse(response);
+                _context4.next = 11;
+                break;
 
-                return _context4.abrupt("return", this.performAction(this.persistRecord));
+              case 8:
+                _context4.prev = 8;
+                _context4.t0 = _context4["catch"](1);
+                this.setResponse(_context4.t0.response);
 
-              case 6:
+              case 11:
+                return _context4.abrupt("return", this.performAction(function () {
+                  return persist ? _this2.persistRecord(_this2.getResponse()) : _this2.insertCollection(_this2.getResponse());
+                }));
+
+              case 12:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee4, this, [[1, 8]]);
       }));
 
       function get() {
@@ -58863,23 +58874,32 @@ function () {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.next = 2;
-                return this.request('put');
+                _context5.prev = 0;
+                _context5.next = 3;
+                return this.httpClient.put("".concat(this.model.id), this.model.mapInput());
 
-              case 2:
+              case 3:
                 response = _context5.sent;
-                return _context5.abrupt("return", this.performAction(response, function () {
-                  _this3.mapModelValues(response);
+                this.setResponse(response);
+                _context5.next = 10;
+                break;
 
-                  _this3.model.$save();
+              case 7:
+                _context5.prev = 7;
+                _context5.t0 = _context5["catch"](0);
+                this.setResponse(_context5.t0.response);
+
+              case 10:
+                return _context5.abrupt("return", this.performAction(function () {
+                  return _this3.persistRecord(_this3.getResponse());
                 }));
 
-              case 4:
+              case 11:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee5, this, [[0, 7]]);
       }));
 
       function put() {
@@ -58894,8 +58914,6 @@ function () {
       var _patch = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-        var _this4 = this;
-
         var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
@@ -58906,11 +58924,7 @@ function () {
 
               case 2:
                 response = _context6.sent;
-                return _context6.abrupt("return", this.performAction(response, function () {
-                  _this4.mapModelValues(response);
-
-                  _this4.model.$save();
-                }));
+                return _context6.abrupt("return", this.performAction(response, function () {}));
 
               case 4:
               case "end":
@@ -58932,23 +58946,26 @@ function () {
       var _delete2 = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
-        var _this5 = this;
+        var _this4 = this;
 
-        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _context7.next = 2;
+                _context7.t0 = this;
+                _context7.next = 3;
                 return this.request('delete');
 
-              case 2:
-                response = _context7.sent;
-                return _context7.abrupt("return", this.performAction(response, function () {
-                  return _this5.model.$delete();
+              case 3:
+                _context7.t1 = _context7.sent;
+
+                _context7.t0.setResponse.call(_context7.t0, _context7.t1);
+
+                return _context7.abrupt("return", this.performAction(function () {
+                  return _this4.model.$delete();
                 }));
 
-              case 4:
+              case 6:
               case "end":
                 return _context7.stop();
             }
@@ -58974,6 +58991,8 @@ function () {
           this.getResponse().showSuccessMessage();
         }
       } else {
+        console.log('error', this.getResponse());
+
         if (this.model.isConfigEnable('error')) {
           this.getResponse().showErrorMessage();
         }
@@ -58989,6 +59008,13 @@ function () {
       for (var key in data) {
         this.model[key] = data[key];
       }
+    }
+  }, {
+    key: "persistRecord",
+    value: function persistRecord() {
+      this.mapModelValues(this.getResponse());
+      this.model.$save();
+      return this.getResponse();
     }
   }]);
 
@@ -59196,6 +59222,7 @@ function (_Model) {
     key: "getDataKey",
     value: function getDataKey() {
       var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      console.log(this.sigularize(this.constructor.name), 'data key');
       return this.sigularize(this.constructor.name);
     }
   }, {
