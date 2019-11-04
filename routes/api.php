@@ -21,3 +21,4 @@ Route::get('vendors', 'Api\VendorController@index');
 Route::post('vendors', 'Api\VendorController@store');
 Route::put('vendors/{vendor}', 'Api\VendorController@update');
 Route::delete('vendors/{vendor}', 'Api\VendorController@destroy');
+Route::get('vendors/{vendor}', 'Api\VendorController@show');
