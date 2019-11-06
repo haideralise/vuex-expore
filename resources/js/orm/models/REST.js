@@ -1,6 +1,6 @@
 import { Model } from '@vuex-orm/core'
 import Request from "../Request";
-class Eloquent extends Model{
+export default class REST extends Model{
     apiUrl = '';
 
     static persist = true;
@@ -36,9 +36,7 @@ class Eloquent extends Model{
     }
 
     getDataKey(config = {}){
-        console.log(this.sigularize(this.constructor.name), 'data key');
         return this.sigularize(this.constructor.name);
-
     }
     sigularize(noun) {
         if((noun[noun.length - 2] == 's' && noun[noun.length - 1] == 's')) {
@@ -60,7 +58,7 @@ class Eloquent extends Model{
         this.apiUrl = url;
         return this;
     }
-    request(){
+    api(){
         return new Request(this.getApiUrl(), this);
     }
     mapInput(){
@@ -69,5 +67,3 @@ class Eloquent extends Model{
         return obj;
     }
 }
-
-export default Eloquent;

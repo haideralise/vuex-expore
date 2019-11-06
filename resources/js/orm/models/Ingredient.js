@@ -1,6 +1,5 @@
-import Eloquent from "./Eloquent";
-export default class Ingredient extends Eloquent {
-    apiUrl = 'http://localhost:8000/api/ingredients';
+import REST from "./REST";
+export default class Ingredient extends REST {
     static get entity () {
         return 'ingredients'
     }

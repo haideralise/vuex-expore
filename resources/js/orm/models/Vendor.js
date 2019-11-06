@@ -1,7 +1,6 @@
-import { Model } from '@vuex-orm/core'
-import Eloquent from "./Eloquent";
+import REST from "./REST";
 import Ingredient from "./Ingredient";
-export default class Vendor extends Eloquent {
+export default class Vendor extends REST {
     static get entity () {
         return 'vendors'
     }

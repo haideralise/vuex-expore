@@ -7759,9 +7759,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _orm_models_Vendor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../orm/models/Vendor */ "./resources/js/orm/models/Vendor.js");
-/* harmony import */ var _store_modules_vendor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/modules/vendor */ "./resources/js/store/modules/vendor.js");
-/* harmony import */ var _IngredientList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./IngredientList */ "./resources/js/components/IngredientList.vue");
-/* harmony import */ var _VendorForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./VendorForm */ "./resources/js/components/VendorForm.vue");
+/* harmony import */ var _IngredientList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IngredientList */ "./resources/js/components/IngredientList.vue");
+/* harmony import */ var _VendorForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./VendorForm */ "./resources/js/components/VendorForm.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7811,11 +7810,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    VendorForm: _VendorForm__WEBPACK_IMPORTED_MODULE_4__["default"],
-    IngredientList: _IngredientList__WEBPACK_IMPORTED_MODULE_3__["default"]
+    VendorForm: _VendorForm__WEBPACK_IMPORTED_MODULE_3__["default"],
+    IngredientList: _IngredientList__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -7846,7 +7844,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.vendor.request().put();
+                return this.vendor.api().put();
 
               case 2:
                 response = _context.sent;
@@ -7921,7 +7919,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return this.vendor.request().post();
+                return this.vendor.api().post();
 
               case 2:
                 response = _context3.sent;
@@ -7958,7 +7956,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return vendor.request()["delete"]();
+                return vendor.api()["delete"]();
 
               case 2:
                 this.mapVendors();
@@ -7987,7 +7985,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 this.setDefaultVendor();
                 _context5.next = 3;
-                return this.vendor.request().get();
+                return this.vendor.api().get();
 
               case 3:
                 this.mapVendors();
@@ -59144,15 +59142,83 @@ function () {
 
 /***/ }),
 
-/***/ "./resources/js/orm/models/Eloquent.js":
-/*!*********************************************!*\
-  !*** ./resources/js/orm/models/Eloquent.js ***!
-  \*********************************************/
+/***/ "./resources/js/orm/models/Ingredient.js":
+/*!***********************************************!*\
+  !*** ./resources/js/orm/models/Ingredient.js ***!
+  \***********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Ingredient; });
+/* harmony import */ var _REST__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./REST */ "./resources/js/orm/models/REST.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Ingredient =
+/*#__PURE__*/
+function (_REST) {
+  _inherits(Ingredient, _REST);
+
+  function Ingredient() {
+    _classCallCheck(this, Ingredient);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Ingredient).apply(this, arguments));
+  }
+
+  _createClass(Ingredient, null, [{
+    key: "fields",
+    value: function fields() {
+      return {
+        id: this.attr(null),
+        name: this.attr(''),
+        unit: this.attr('kg'),
+        price: this.attr(1),
+        vendor_id: this.attr(null)
+      };
+    }
+  }, {
+    key: "entity",
+    get: function get() {
+      return 'ingredients';
+    }
+  }]);
+
+  return Ingredient;
+}(_REST__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/orm/models/REST.js":
+/*!*****************************************!*\
+  !*** ./resources/js/orm/models/REST.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return REST; });
 /* harmony import */ var _vuex_orm_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vuex-orm/core */ "./node_modules/@vuex-orm/core/dist/vuex-orm.esm.js");
 /* harmony import */ var _Request__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Request */ "./resources/js/orm/Request.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -59178,30 +59244,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var Eloquent =
+var REST =
 /*#__PURE__*/
 function (_Model) {
-  _inherits(Eloquent, _Model);
+  _inherits(REST, _Model);
 
-  function Eloquent() {
+  function REST() {
     var _getPrototypeOf2;
 
     var _this;
 
-    _classCallCheck(this, Eloquent);
+    _classCallCheck(this, REST);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Eloquent)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(REST)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "apiUrl", '');
 
     return _this;
   }
 
-  _createClass(Eloquent, [{
+  _createClass(REST, [{
     key: "isConfigEnable",
     value: function isConfigEnable(key) {
       return this.constructor[key];
@@ -59222,7 +59288,6 @@ function (_Model) {
     key: "getDataKey",
     value: function getDataKey() {
       var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      console.log(this.sigularize(this.constructor.name), 'data key');
       return this.sigularize(this.constructor.name);
     }
   }, {
@@ -59253,8 +59318,8 @@ function (_Model) {
       return this;
     }
   }, {
-    key: "request",
-    value: function request() {
+    key: "api",
+    value: function api() {
       return new _Request__WEBPACK_IMPORTED_MODULE_1__["default"](this.getApiUrl(), this);
     }
   }, {
@@ -59320,95 +59385,14 @@ function (_Model) {
     }
   }]);
 
-  return Eloquent;
+  return REST;
 }(_vuex_orm_core__WEBPACK_IMPORTED_MODULE_0__["Model"]);
 
-_defineProperty(Eloquent, "persist", true);
+_defineProperty(REST, "persist", true);
 
-_defineProperty(Eloquent, "success", true);
+_defineProperty(REST, "success", true);
 
-_defineProperty(Eloquent, "error", true);
-
-/* harmony default export */ __webpack_exports__["default"] = (Eloquent);
-
-/***/ }),
-
-/***/ "./resources/js/orm/models/Ingredient.js":
-/*!***********************************************!*\
-  !*** ./resources/js/orm/models/Ingredient.js ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Ingredient; });
-/* harmony import */ var _Eloquent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Eloquent */ "./resources/js/orm/models/Eloquent.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-var Ingredient =
-/*#__PURE__*/
-function (_Eloquent) {
-  _inherits(Ingredient, _Eloquent);
-
-  function Ingredient() {
-    var _getPrototypeOf2;
-
-    var _this;
-
-    _classCallCheck(this, Ingredient);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Ingredient)).call.apply(_getPrototypeOf2, [this].concat(args)));
-
-    _defineProperty(_assertThisInitialized(_this), "apiUrl", 'http://localhost:8000/api/ingredients');
-
-    return _this;
-  }
-
-  _createClass(Ingredient, null, [{
-    key: "fields",
-    value: function fields() {
-      return {
-        id: this.attr(null),
-        name: this.attr(''),
-        unit: this.attr('kg'),
-        price: this.attr(1),
-        vendor_id: this.attr(null)
-      };
-    }
-  }, {
-    key: "entity",
-    get: function get() {
-      return 'ingredients';
-    }
-  }]);
-
-  return Ingredient;
-}(_Eloquent__WEBPACK_IMPORTED_MODULE_0__["default"]);
+_defineProperty(REST, "error", true);
 
 
 
@@ -59424,9 +59408,8 @@ function (_Eloquent) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Vendor; });
-/* harmony import */ var _vuex_orm_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vuex-orm/core */ "./node_modules/@vuex-orm/core/dist/vuex-orm.esm.js");
-/* harmony import */ var _Eloquent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Eloquent */ "./resources/js/orm/models/Eloquent.js");
-/* harmony import */ var _Ingredient__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Ingredient */ "./resources/js/orm/models/Ingredient.js");
+/* harmony import */ var _REST__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./REST */ "./resources/js/orm/models/REST.js");
+/* harmony import */ var _Ingredient__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Ingredient */ "./resources/js/orm/models/Ingredient.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59448,11 +59431,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
 var Vendor =
 /*#__PURE__*/
-function (_Eloquent) {
-  _inherits(Vendor, _Eloquent);
+function (_REST) {
+  _inherits(Vendor, _REST);
 
   function Vendor() {
     _classCallCheck(this, Vendor);
@@ -59474,7 +59456,7 @@ function (_Eloquent) {
         name: this.attr(''),
         contact: this.attr(''),
         address: this.attr(''),
-        ingredients: this.hasMany(_Ingredient__WEBPACK_IMPORTED_MODULE_2__["default"], 'vendor_id')
+        ingredients: this.hasMany(_Ingredient__WEBPACK_IMPORTED_MODULE_1__["default"], 'vendor_id')
       };
     }
   }, {
@@ -59485,7 +59467,7 @@ function (_Eloquent) {
   }]);
 
   return Vendor;
-}(_Eloquent__WEBPACK_IMPORTED_MODULE_1__["default"]);
+}(_REST__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 
@@ -59522,286 +59504,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   plugins: [_vuex_orm_core__WEBPACK_IMPORTED_MODULE_2__["default"].install(database)]
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
-
-/***/ }),
-
-/***/ "./resources/js/store/modules/vendor.js":
-/*!**********************************************!*\
-  !*** ./resources/js/store/modules/vendor.js ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-var state = {
-  vendors: [],
-  selectedVendor: {
-    name: '',
-    contact: '',
-    address: '',
-    id: null
-  },
-  message: '',
-  showToast: false,
-  errorType: 'success'
-};
-var ApiUrl = 'http://localhost:8000/api/vendors';
-var getters = {
-  vendors: function vendors(state) {
-    return state.vendors;
-  },
-  selectedVendor: function selectedVendor(state) {
-    return state.selectedVendor;
-  },
-  showToast: function showToast(state) {
-    return state.showToast;
-  },
-  message: function message(state) {
-    return state.message;
-  },
-  errorType: function errorType(state) {
-    return state.errorType;
-  }
-};
-
-function errorRapper(errors) {
-  var errorBag = [];
-
-  for (var key in errors) {
-    errorBag.push(errors[key]);
-  }
-
-  return errorBag;
-}
-
-function showNotification(response, state) {
-  if (response.response && response.response.status && response.response.status === 422) {
-    state.message = errorRapper(response.response.data.errors).join(', ');
-    state.errorType = 'danger';
-    state.showToast = true;
-    setTimeout(function () {
-      state.showToast = false;
-    }, 1500);
-    return false;
-  } else {
-    state.showToast = true;
-    state.message = response.data.message;
-    state.errorType = 'success';
-    setTimeout(function () {
-      state.showToast = false;
-    }, 1500);
-    return true;
-  }
-}
-
-var actions = {
-  fetchVendors: function () {
-    var _fetchVendors = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
-      var commit, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              commit = _ref.commit;
-              _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(ApiUrl);
-
-            case 3:
-              response = _context.sent;
-              commit('setVendors', response.data);
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    function fetchVendors(_x) {
-      return _fetchVendors.apply(this, arguments);
-    }
-
-    return fetchVendors;
-  }(),
-  addTodo: function () {
-    var _addTodo = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, vendor) {
-      var commit, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              commit = _ref2.commit;
-              _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(ApiUrl, vendor);
-
-            case 3:
-              response = _context2.sent;
-              commit('newVendor', response.data);
-
-            case 5:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    function addTodo(_x2, _x3) {
-      return _addTodo.apply(this, arguments);
-    }
-
-    return addTodo;
-  }(),
-  saveVendor: function () {
-    var _saveVendor = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, vendor) {
-      var commit, url;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              commit = _ref3.commit;
-              url = ApiUrl;
-
-              if (vendor.id) {
-                url += "/".concat(vendor.id);
-              }
-
-              _context3.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, vendor).then(function (response) {
-                return commit('updateVendor', response);
-              })["catch"](function (respnose) {
-                return commit('updateVendor', respnose);
-              });
-
-            case 5:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-
-    function saveVendor(_x4, _x5) {
-      return _saveVendor.apply(this, arguments);
-    }
-
-    return saveVendor;
-  }(),
-  deleteVendor: function () {
-    var _deleteVendor = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, vendor) {
-      var commit, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              commit = _ref4.commit;
-              _context4.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("".concat(ApiUrl, "/").concat(vendor.id));
-
-            case 3:
-              response = _context4.sent;
-              commit('removeVendor', {
-                vendor: vendor,
-                response: response
-              });
-
-            case 5:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-
-    function deleteVendor(_x6, _x7) {
-      return _deleteVendor.apply(this, arguments);
-    }
-
-    return deleteVendor;
-  }(),
-  selectVendorF: function selectVendorF(_ref5, vendor) {
-    var commit = _ref5.commit;
-    commit('selectVendor', vendor);
-  },
-  defaultVendor: function defaultVendor(_ref6) {
-    var commit = _ref6.commit;
-    var vendor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-      name: '',
-      contact: '',
-      address: '',
-      id: null
-    };
-    commit('defaultVendor', vendor);
-  }
-};
-var mutations = {
-  setVendors: function setVendors(state, vendors) {
-    return state.vendors = vendors;
-  },
-  newVendor: function newVendor(state, vendor) {
-    return state.vendors.unshift(vendor);
-  },
-  selectVendor: function selectVendor(state, vendor) {
-    return state.selectedVendor = vendor;
-  },
-  updateVendor: function updateVendor(state, response) {
-    if (showNotification(response, state)) {
-      var vendor = response.data.vendor;
-      var index = state.vendors.findIndex(function (v) {
-        return v.id === vendor.id;
-      });
-
-      if (index >= 0) {
-        state.vendors[index] = vendor;
-      } else {
-        state.vendors.push(vendor);
-      }
-
-      state.selectedVendor = {
-        name: '',
-        contact: '',
-        address: '',
-        id: null
-      };
-    }
-  },
-  defaultVendor: function defaultVendor(state, vendor) {
-    state.selectedVendor = vendor;
-  },
-  removeVendor: function removeVendor(state, response) {
-    state.vendors.splice(state.vendors.findIndex(function (v) {
-      return v.id === response.vendor.id;
-    }), 1);
-    showNotification(response.response, state);
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = ({
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
 
 /***/ }),
 

@@ -40,7 +40,6 @@
 
 <script>
     import Vendor from "./../orm/models/Vendor";
-    import vendor from "../store/modules/vendor";
     import IngredientList from "./IngredientList";
     import VendorForm from "./VendorForm";
     export default {
@@ -63,7 +62,7 @@
                 this.hideVendorList = false;
             },
             async updateVendor() {
-                let response = await this.vendor.request().put();
+                let response = await this.vendor.api().put();
                 response.success(() => this.setDefaultVendor());
             },
             async save() {
@@ -75,7 +74,7 @@
                 this.mapVendors();
             },
             async addVendor(){
-                let response = await this.vendor.request().post();
+                let response = await this.vendor.api().post();
                 response.success(() => this.setDefaultVendor());
             },
             getDefaultVendor(){
@@ -83,15 +82,15 @@
             },
             mapVendors(){
                 this.vendors =  this.vendors = Vendor.query().with('ingredients').orderBy('id', 'desc').all();
-                },
+            },
             async deleteVendor(vendor){
-                await vendor.request().delete();
+                await vendor.api().delete();
                 this.mapVendors();
 
             },
             async fetchVendors(){
                 this.setDefaultVendor();
-                await this.vendor.request().get();
+                await this.vendor.api().get();
 
                 this.mapVendors();
             },
