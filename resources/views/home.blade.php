@@ -2,6 +2,8 @@
 
 @section('content')
 <div class="container">
-    <vendor-list></vendor-list>
+    <router-link to="/">Vendors</router-link>
+    <router-link to="/ingredients">Ingredients</router-link>
+    <router-view></router-view>
 </div>
 @endsection

@@ -3,6 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import VendorList from "./components/VendorList";
 
 require('./bootstrap');
 require('toastr/toastr');
@@ -29,8 +30,27 @@ import store from './orm/store';
  */
 
 Vue.config.productionTip = false;
+import VueRouter from 'vue-router'
+import IngredientList from "./components/IngredientList";
+import Vendor from "./orm/models/Vendor";
+
+Vue.use(VueRouter);
+const routes = [
+    { path: '/',
+        component: VendorList },
+    { path: '/vendor/:id/ingredients',
+        component: IngredientList,
+        props: (route) => ({
+            vendor: Vendor.query().with('ingredients').last() })
+    }
+];
+const router = new VueRouter({
+    routes // short for `routes: routes`
+})
+
 
 
 new Vue({ 'el': '#app',
     store,
+    router
 });

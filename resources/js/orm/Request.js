@@ -94,20 +94,19 @@ class Request {
                 this.getResponse().showSuccessMessage();
             }
         }else {
-            console.log('error', this.getResponse());
             if(this.model.isConfigEnable('error')) {
                 this.getResponse().showErrorMessage();
             }
         }
         return this.getResponse();
     }
-    mapModelValues(response) {
+    mapModelValues = (response) => {
         let data = response.data[this.model.getDataKey()];
         for (let key in data) {
             this.model[key] = data[key];
         }
     }
-    persistRecord()
+    persistRecord = () =>
     {
         this.mapModelValues(this.getResponse())
         this.model.$save();

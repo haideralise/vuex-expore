@@ -24,7 +24,6 @@
                         <td>{{ vendor.name }}</td>
                         <td>{{ vendor.contact }}</td>
                         <td>{{ vendor.address }}</td>
-
                         <td>{{ vendor.ingredients.length }}</td>
                         <td>
                             <button class="btn btn-danger" @click="deleteVendor(vendor)">x</button>
